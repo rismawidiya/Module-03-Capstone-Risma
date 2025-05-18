@@ -1,0 +1,14 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+missingno
+scikit-learn
+shap
+joblib
+xgboost
+catboost
+statsmodels
+category_encoders
