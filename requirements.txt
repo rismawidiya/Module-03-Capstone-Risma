@@ -13,3 +13,4 @@ category_encoders
 statsmodels
 xgboost
 catboost
+streamlit-option-menu
