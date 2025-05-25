@@ -1,0 +1,15 @@
+streamlit
+pandas
+numpy
+joblib
+shap
+pickle-mixin
+matplotlib
+seaborn
+missingno
+plotly
+scikit-learn
+category_encoders
+statsmodels
+xgboost
+catboost
