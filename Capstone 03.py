@@ -64,12 +64,9 @@ def home():
     )
 
     st.markdown("""
-    > **Daegu is growing fast**, and apartments are one of the most in-demand types of housing.  
-    > But figuring out how much a unit should sell for isn't always easy.  
-    > A price that's too high could scare off buyers. Too low, and agents might leave money on the table.  
+    > **Daegu is growing fast**, and apartments are one of the most in-demand types of housing. But figuring out how much a unit should sell for isn't always easy. A price that's too high could scare off buyers. Too low, and real estate company might leave money on the table.  
     >  
-    > That's where this app comes in. Instead of relying purely on gut feeling or rough comparisons, we can use machine learning to analyse key property features—like size, age, location, and nearby amenities—to predict prices more accurately.  
-    > This gives real estate agents a solid, data-backed starting point when listing a property.  
+    > That's where this app comes in. Instead of relying purely on gut feeling or rough comparisons, we can use machine learning to analyse key property features—like size, age, location, and nearby amenities—to predict prices more accurately. This gives real estate company a solid, data-backed starting point when listing a property.  
     >  
     > **What you can do here:**  
     > • Explore detailed data analysis and visual insights  
