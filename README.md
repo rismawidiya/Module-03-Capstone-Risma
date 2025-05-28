@@ -29,7 +29,7 @@ A live demo of the project is available via Streamlit (hosted on Streamlit Cloud
 - Size(sqf)
 - Target variable: SalePrice
 
-##Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 Visualisations explored include:
 - Price distribution
 - Price vs individual feature
