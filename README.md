@@ -5,16 +5,16 @@ This project aims to predict apartment sale prices in **Daegu, South Korea** usi
 ---
 
 ## Project Structure
-├── data/ # Cleaned and processed dataset (not included in repo)
-├── notebooks/ # Jupyter notebooks for EDA, modeling, and evaluation
-├── app/ # Streamlit app for interactive prediction and analysis
-├── models/ # Serialised trained models and preprocessing pipeline
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation
+- data/ # Cleaned and processed dataset (not included in repo)
+- notebooks/ # Jupyter notebooks for EDA, modeling, and evaluation
+- app/ # Streamlit app for interactive prediction and analysis
+- models/ # Serialised trained models and preprocessing pipeline
+- requirements.txt # Python dependencies
+- README.md # Project documentation
 
 ## Demo
 A live demo of the project is available via Streamlit (hosted on Streamlit Cloud)
-streamlit run "Capstone 03.py"
+- streamlit run "Capstone 03.py"
 
 ## Features Used
 - HallwayType (categorical)
@@ -56,7 +56,7 @@ All models are evaluated using cross-validation and performance metrics like RMS
 
 ## Evaluation
 Performance of the final XGBoost model:
-R² Score: 0.787331 (log)
-RMSE: 47530.272290 (₩)
-MAE: 38059.964844 (₩)
-MAPE: 18.775083 (%)
+- R² Score: 0.787331 (log)
+- RMSE: 47530.272290 (₩)
+- MAE: 38059.964844 (₩)
+- MAPE: 18.775083 (%)
