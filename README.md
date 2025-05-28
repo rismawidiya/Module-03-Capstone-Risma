@@ -38,6 +38,7 @@ Visualisations explored include:
 - Correlation heatmaps
 
 ## Models Used
+All models are evaluated using cross-validation and performance metrics like RMSE, MAE, MAPE, and R² score:
 - Random Forest Regressor
 - Gradient Boosting Regressor
 - XGBoost Regressor
@@ -45,7 +46,6 @@ Visualisations explored include:
 - HistGradient Boosting Regressor
 - Ridge
 - SVR
-All models are evaluated using cross-validation and performance metrics like RMSE, MAE, MAPE, and R² score.
 
 ## Key Techniques
 - Feature engineering
