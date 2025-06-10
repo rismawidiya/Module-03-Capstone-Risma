@@ -23,7 +23,7 @@ with st.sidebar:
     # Space:
     st.markdown("<br><br>", unsafe_allow_html=True)
 
-    # Creator info at the bottom"
+    # Creator info at the bottom:
     st.markdown(
         """
         <div style='
@@ -419,7 +419,7 @@ def price_predictor():
         fac_etc = st.slider("Miscellaneous Nearby Facilities (ETC)", 0, 5, value=2)
         fac_uni = st.slider("Nearby Universities", 0, 5, value=2)
 
-    # Apartment Features
+    # Apartment Features:
     st.markdown("### Apartment Features")
     feat_col1, feat_col2 = st.columns(2)
     with feat_col1:
@@ -430,7 +430,7 @@ def price_predictor():
         parking_bsmnt = st.slider("Basement Parking Spaces", 0, 1321, value=536)
         size = st.slider("Apartment Size (sqft)", 135, 2337, value=910)
 
-    # Prepare input dataframe
+    # Prepare input dataframe:
     input_data = pd.DataFrame({
         'HallwayType': [hallway],
         'TimeToSubway': [time_to_subway],
@@ -446,7 +446,7 @@ def price_predictor():
 
     if st.button("Predict Sale Price"):
         try:
-            # Use combined pipeline
+            # Use combined pipeline:
             prediction_log = model_pipeline.predict(input_data)[0]
             prediction = np.expm1(prediction_log)
 
@@ -471,6 +471,9 @@ def price_predictor():
             user_data = pd.read_csv(uploaded_file)
 
             # Apply renaming to match the training data:
+            if 'HallwayType' in user_data.columns:
+                user_data['HallwayType'] = user_data['HallwayType'].str.strip().str.title()
+
             time_rename_map = {
                 '5min~10min': '5min-10min',
                 '10min~15min': '10min-15min',
