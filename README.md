@@ -5,7 +5,7 @@ This project aims to predict apartment sale prices in **Daegu, South Korea** usi
 ---
 
 ## Project Structure
-- data/ # Cleaned and processed dataset (not included in repo)
+- data/ # Cleaned and processed dataset
 - notebooks/ # Jupyter notebooks for EDA, modeling, and evaluation
 - app/ # Streamlit app for interactive prediction and analysis
 - models/ # Serialised trained models and preprocessing pipeline
