@@ -68,7 +68,41 @@ def data_analysis():
         title='Subway Station vs Sale Price'
     )
 
-    # Parallel Coordinates Plot
+    # Box Plots:
+    fig_etc = px.box(data, x="N_FacilitiesNearBy(ETC)", y="SalePrice",
+                  title="Nearby Facilities vs Apartment Prices")
+    fig_etc.update_traces(marker_color="#FF8DA1")
+
+    fig_office = px.box(data, x="N_FacilitiesNearBy(PublicOffice)", y="SalePrice",
+                  title="Nearby Public Offices vs Apartment Prices")
+    fig_office.update_traces(marker_color="#FF8DA1")
+
+    # Scatter Plot with outliers:
+    Q1 = data['SalePrice'].quantile(0.25)
+    Q3 = data['SalePrice'].quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - 1.5 * IQR
+    upper = Q3 + 1.5 * IQR
+    outliers = data[(data['SalePrice'] < lower) | (data['SalePrice'] > upper)]
+
+    fig_size = px.scatter(data, x="Size(sqf)", y="SalePrice",
+                      title="Apartment Size vs Price",
+                      hover_data=["YearBuilt", "HallwayType"])
+    fig_size.update_traces(marker=dict(color='#FF8DA1', size=8))
+    fig_size.add_scatter(
+        x=outliers["Size(sqf)"],
+        y=outliers["SalePrice"],
+        mode="markers",
+        marker=dict(color="#FF6F91", size=10, symbol="x"),
+        name="Outliers"
+    )
+
+    # Another Plot:
+    fig_facilities = px.box(data, x="N_FacilitiesInApt", y="SalePrice",
+                  title="In-Apt Facilities vs Price")
+    fig_facilities.update_traces(marker_color="#FF8DA1")
+
+    # Parallel Coordinates Plot:
     fig_parallel = px.parallel_coordinates(
         data,
         dimensions=[
@@ -80,12 +114,28 @@ def data_analysis():
         title='Multivariate Influence on Apartment Price'
     )
 
+    # Custom colour palette:
+    custom_pink_scale = ["#CF3F59", '#F77896', "#5D1B25"]
+
+    # Order TimeToSubway values:
+    time_order = ['0-5min', '5min-10min', '10min-15min', '15min-20min', 'No Bus Stop Nearby']
+
+    # Create the faceted figure:
+    fig_faceted = px.scatter(
+        data,
+        x='Size(sqf)',
+        y='SalePrice',
+        color='HallwayType',
+        facet_col='TimeToSubway',
+        facet_col_wrap=3,
+        color_discrete_sequence=custom_pink_scale,
+        category_orders={'TimeToSubway': time_order},
+        title='Sale Price vs Size Faceted by Subway Time and Hallway Type'
+    )
+
     return (
         "Explore the hidden stories behind square footage, hallway types, subway stations, and more.",
-        fig_hallway,
-        fig_time,
-        fig_subway,
-        fig_parallel
+        fig_hallway, fig_time, fig_subway, fig_etc, fig_office, fig_size, fig_facilities, fig_parallel, fig_faceted
     )
 
 # Define prediction function:
@@ -198,12 +248,17 @@ with gr.Blocks(css="""
         )
 
     with gr.Tab("Explore Data"):
-        description, fig1, fig2, fig3, fig4 = data_analysis()
+        description, fig_hallway, fig_time, fig_subway, fig_etc, fig_office, fig_size, fig_facilities, fig_parallel, fig_faceted = data_analysis()
         gr.Markdown(description)
-        gr.Plot(fig1)
-        gr.Plot(fig2)
-        gr.Plot(fig3)
-        gr.Plot(fig4)
+        gr.Plot(fig_hallway)
+        gr.Plot(fig_time)
+        gr.Plot(fig_subway)
+        gr.Plot(fig_etc)
+        gr.Plot(fig_office)
+        gr.Plot(fig_size)
+        gr.Plot(fig_facilities)
+        gr.Plot(fig_parallel)
+        gr.Plot(fig_faceted)
 
 if __name__ == "__main__":
-    demo.launch(share=True)
+    demo.launch()
