@@ -13,7 +13,7 @@ This project aims to predict apartment sale prices in **Daegu, South Korea** usi
 - README.md # Project documentation
 
 ## Demo
-A live demo of the project is available via Streamlit (hosted on Streamlit Cloud) and Gradio (hosted on Hugging Face)
+A live demo of the project is available via Streamlit (hosted on Streamlit Cloud) and Gradio (hosted on Hugging Face):
 - Run locally with: streamlit run "Capstone 03.py"
 - Run locally with: python run "Capstone 03.py"
 
