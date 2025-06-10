@@ -9,13 +9,13 @@ import plotly.graph_objects as go
 model = joblib.load("xgb_daegu_apartments_pipeline.sav")
 
 def data_analysis():
-    # Load data
+    # Load data:
     data = pd.read_csv('data_daegu_apartment.csv')
 
-    # Clean columns
+    # Clean columns:
     data['HallwayType'] = data['HallwayType'].str.strip().str.title()
 
-    # Mapping categorical columns
+    # Mapping categorical columns:
     time_rename_map = {
         '5min~10min': '5min-10min',
         '10min~15min': '10min-15min',
@@ -36,7 +36,7 @@ def data_analysis():
     }
     data['SubwayStation'] = data['SubwayStation'].map(subway_rename_map)
 
-    # Bar Chart: Hallway Type vs SalePrice
+    # Bar Chart: Hallway Type vs SalePrice:
     hallway_avg = data.groupby('HallwayType')['SalePrice'].mean().reset_index()
     fig_hallway = px.bar(
         hallway_avg, x='HallwayType', y='SalePrice',
@@ -50,7 +50,7 @@ def data_analysis():
         title='Hallway Type vs Sale Price'
     )
 
-    # Box Plot: Time to Subway
+    # Box Plot: Time to Subway:
     time_order = ['0-5min', '5min-10min', '10min-15min', '15min-20min', 'No Bus Stop Nearby']
     fig_time = px.box(
         data, x='TimeToSubway', y='SalePrice',
@@ -59,7 +59,7 @@ def data_analysis():
     )
     fig_time.update_traces(marker_color='#FF8DA1')
 
-    # Bar Chart: Subway Station
+    # Bar Chart: Subway Station:
     avg_price_by_station = data.groupby('SubwayStation')['SalePrice'].mean().reset_index()
     fig_subway = px.bar(
         avg_price_by_station, x='SubwayStation', y='SalePrice',
