@@ -405,7 +405,7 @@ def price_predictor():
     > Input apartment details manually or upload your own dataset for batch predictions.
     """)
 
-    # Location Info
+    # Location Info:
     st.markdown("### Location Info")
     loc_col1, loc_col2 = st.columns(2)
     with loc_col1:
@@ -457,7 +457,7 @@ def price_predictor():
         except Exception as e:
             st.error(f"Prediction failed: {e}")
 
-    # Batch prediction
+    # Batch prediction:
     st.markdown("---")
     st.markdown("### Batch Predictions")
     st.markdown("""
@@ -470,15 +470,41 @@ def price_predictor():
         try:
             user_data = pd.read_csv(uploaded_file)
 
+            # Apply renaming to match the training data:
+            time_rename_map = {
+                '5min~10min': '5min-10min',
+                '10min~15min': '10min-15min',
+                '15min~20min': '15min-20min',
+                'no_bus_stop_nearby': 'No Bus Stop Nearby'
+            }
+            subway_rename_map = {
+                'Myung-duk': 'Myung-duk',
+                'Kyungbuk_uni_hospital': 'Kyungbuk Uni Hospital',
+                'Sin-nam': 'Sin-nam',
+                'Banwoldang': 'Banwoldang',
+                'Bangoge': 'Bangoge',
+                'no_subway_nearby': 'No Subway Nearby',
+                'Chil-sung-market': 'Chil-sung Market',
+                'Daegu': 'Daegu'
+            }
+
+            if 'TimeToSubway' in user_data.columns:
+                user_data['TimeToSubway'] = user_data['TimeToSubway'].replace(time_rename_map)
+            if 'SubwayStation' in user_data.columns:
+                user_data['SubwayStation'] = user_data['SubwayStation'].replace(subway_rename_map)
+
+            # Predict using the trained pipeline:
             predictions_log = model_pipeline.predict(user_data)
             predictions = np.expm1(predictions_log)
 
+            # Add predictions to DataFrame:
             user_data['Predicted Sale Price (₩)'] = predictions
             user_data['Predicted Price (Million ₩)'] = predictions / 1_000_000
 
             st.markdown("### Predictions:")
             st.dataframe(user_data)
 
+            # Download results:
             csv = user_data.to_csv(index=False).encode('utf-8')
             st.download_button(
                 "Download Results as CSV",
@@ -488,6 +514,7 @@ def price_predictor():
             )
         except Exception as e:
             st.error(f"Something went wrong while processing the file: {e}")
+
 
 def conclusion():
     st.markdown(
