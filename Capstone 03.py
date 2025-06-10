@@ -502,7 +502,9 @@ def price_predictor():
 
             # Add predictions to DataFrame:
             user_data['Predicted Sale Price (₩)'] = predictions
-            user_data['Predicted Price (Million ₩)'] = predictions / 1_000_000
+            # Format with commas:
+            user_data['Predicted Sale Price (₩)'] = predictions.apply(lambda x: f"{x:,.4f}")
+
 
             st.markdown("### Predictions:")
             st.dataframe(user_data)
