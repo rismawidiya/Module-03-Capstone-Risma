@@ -36,7 +36,7 @@ def data_analysis():
     }
     data['SubwayStation'] = data['SubwayStation'].map(subway_rename_map)
 
-    # Bar Chart: Hallway Type vs SalePrice:
+    # Bar chart: Hallway Type vs SalePrice:
     hallway_avg = data.groupby('HallwayType')['SalePrice'].mean().reset_index()
     fig_hallway = px.bar(
         hallway_avg, x='HallwayType', y='SalePrice',
@@ -46,36 +46,77 @@ def data_analysis():
             'Mixed': '#F77896',
             'Corridor': '#FFB6C1'
         },
-        labels={'SalePrice': 'Average Sale Price (₩)'},
-        title='Hallway Type vs Sale Price'
+        labels={'SalePrice': 'Average Sale Price (₩)'}
     )
+    
+    # Remove the internal title completely:
+    fig_hallway.update_layout(title=None)
 
-    # Box Plot: Time to Subway:
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Hallway Type vs Sale Price</h3>")
+
+    # Display:
+    gr.Plot(fig_hallway)
+
+    # Box plot: Time to Subway:
     time_order = ['0-5min', '5min-10min', '10min-15min', '15min-20min', 'No Bus Stop Nearby']
     fig_time = px.box(
         data, x='TimeToSubway', y='SalePrice',
-        category_orders={'TimeToSubway': time_order},
-        title='Subway Distance vs Apartment Prices'
+        category_orders={'TimeToSubway': time_order}
     )
     fig_time.update_traces(marker_color='#FF8DA1')
 
-    # Bar Chart: Subway Station:
+    # Remove the internal title completely:
+    fig_time.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Subway Distance vs Apartment Price</h3>")
+
+    # Display:
+    gr.Plot(fig_time)
+
+    # Bar chart: Subway Station:
     avg_price_by_station = data.groupby('SubwayStation')['SalePrice'].mean().reset_index()
     fig_subway = px.bar(
         avg_price_by_station, x='SubwayStation', y='SalePrice',
         color='SubwayStation',
-        color_discrete_sequence=['#FFC0CB', '#FFB6C1', '#FF69B4', '#FF1493', '#DB7093', '#C71585', '#E75480', '#F8BBD0'],
-        title='Subway Station vs Sale Price'
+        color_discrete_sequence=['#FFC0CB', '#FFB6C1', '#FF69B4', '#FF1493', '#DB7093', '#C71585', '#E75480', '#F8BBD0']
     )
 
-    # Box Plots:
-    fig_etc = px.box(data, x="N_FacilitiesNearBy(ETC)", y="SalePrice",
-                  title="Nearby Facilities vs Apartment Prices")
+    # Remove the internal title completely:
+    fig_subway.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Subway Station vs Sale Price</h3>")
+
+    # Display:
+    gr.Plot(fig_subway)
+
+    # Box plot: ETC:
+    fig_etc = px.box(data, x="N_FacilitiesNearBy(ETC)", y="SalePrice")
     fig_etc.update_traces(marker_color="#FF8DA1")
 
-    fig_office = px.box(data, x="N_FacilitiesNearBy(PublicOffice)", y="SalePrice",
-                  title="Nearby Public Offices vs Apartment Prices")
+    # Remove the internal title completely:
+    fig_etc.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Nearby Facilities vs Apartment Price</h3>")
+
+    # Display:
+    gr.Plot(fig_etc)
+
+    # Box plot: Offices:
+    fig_office = px.box(data, x="N_FacilitiesNearBy(PublicOffice)", y="SalePrice")
     fig_office.update_traces(marker_color="#FF8DA1")
+
+    # Remove the internal title completely:
+    fig_office.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Nearby Public Offices vs Apartment Price</h3>")
+
+    # Display:
+    gr.Plot(fig_office)
 
     # Scatter Plot with outliers:
     Q1 = data['SalePrice'].quantile(0.25)
@@ -86,7 +127,6 @@ def data_analysis():
     outliers = data[(data['SalePrice'] < lower) | (data['SalePrice'] > upper)]
 
     fig_size = px.scatter(data, x="Size(sqf)", y="SalePrice",
-                      title="Apartment Size vs Price",
                       hover_data=["YearBuilt", "HallwayType"])
     fig_size.update_traces(marker=dict(color='#FF8DA1', size=8))
     fig_size.add_scatter(
@@ -97,12 +137,29 @@ def data_analysis():
         name="Outliers"
     )
 
-    # Another Plot:
-    fig_facilities = px.box(data, x="N_FacilitiesInApt", y="SalePrice",
-                  title="In-Apt Facilities vs Price")
+    # Remove the internal title completely:
+    fig_size.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Apartment Size vs Price</h3>")
+
+    # Display:
+    gr.Plot(fig_size)
+
+    # Box plot: Facilities:
+    fig_facilities = px.box(data, x="N_FacilitiesInApt", y="SalePrice")
     fig_facilities.update_traces(marker_color="#FF8DA1")
 
-    # Parallel Coordinates Plot:
+    # Remove the internal title completely:
+    fig_facilities.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>In-Apt Facilities vs Price</h3>")
+
+    # Display:
+    gr.Plot(fig_facilities)
+
+    # Parallel coordinates plot:
     fig_parallel = px.parallel_coordinates(
         data,
         dimensions=[
@@ -110,9 +167,17 @@ def data_analysis():
             'N_FacilitiesNearBy(ETC)', 'N_SchoolNearBy(University)'
         ],
         color='SalePrice',
-        color_continuous_scale=['#FFE5EC', '#FFB3D1', '#FF5CA8', '#C9184A', '#86002D'],
-        title='Multivariate Influence on Apartment Price'
+        color_continuous_scale=['#FFE5EC', '#FFB3D1', '#FF5CA8', '#C9184A', '#86002D']
     )
+
+    # Remove the internal title completely:
+    fig_parallel.update_layout(title=None)
+
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Multivariate Influence on Apartment Price</h3>")
+
+    # Display:
+    gr.Plot(fig_parallel)
 
     # Custom colour palette:
     custom_pink_scale = ["#CF3F59", '#F77896', "#5D1B25"]
@@ -129,15 +194,20 @@ def data_analysis():
         facet_col='TimeToSubway',
         facet_col_wrap=3,
         color_discrete_sequence=custom_pink_scale,
-        category_orders={'TimeToSubway': time_order},
-        title='Sale Price vs Size Faceted by Subway Time and Hallway Type'
+        category_orders={'TimeToSubway': time_order}
     )
 
-    return (
-        "Explore the hidden stories behind square footage, hallway types, subway stations, and more.",
-        fig_hallway, fig_time, fig_subway, fig_etc, fig_office, fig_size, fig_facilities, fig_parallel, fig_faceted
-    )
+    # Remove the internal title completely:
+    fig_faceted.update_layout(title=None)
 
+    # Add a centered, black Gradio title above the chart:
+    gr.Markdown("<h3 style='text-align: center; color: black;'>Sale Price vs Size Faceted by Subway Time and Hallway Type</h3>")
+
+    # Display:
+    gr.Plot(fig_faceted)
+
+    return "Explore the hidden stories behind square footage, hallway types, subway stations, and more."
+    
 # Define prediction function:
 def predict_price(hallway, subway_time, station, size, year, facilities, univ_nearby, basement_parking, public_office, etc_facilities):
     try:
@@ -170,19 +240,38 @@ station_options = ['No Subway Nearby', 'Bangoge', 'Banwoldang', 'Chil-sung Marke
 
 # Create Gradio interface:
 with gr.Blocks(css="""
-    body {background-color: #fff0f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+    body {
+        background-color: #fff0f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     .section-header {
         font-size: 20px; 
         font-weight: 700; 
         margin-bottom: 12px; 
-        color: #e75480;  /* bright pink */
+        color: #e75480;
         border-bottom: 2px solid #f8bbd0;
         padding-bottom: 4px;
     }
-    .gr-slider {
-        --thumb-color: #e75480;  /* pink thumb */
-        --track-color: #f8bbd0;  /* light pink track */
-        margin-bottom: 20px;
+    /* Range sliders */
+    input[type=range]::-webkit-slider-thumb {
+        background: #e75480;
+    }
+    input[type=range]::-moz-range-thumb {
+        background: #e75480;
+    }
+    input[type=range]::-ms-thumb {
+        background: #e75480;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+        background: #f8bbd0;
+    }
+    input[type=range]::-moz-range-track {
+        background: #f8bbd0;
+    }
+    input[type=range]::-ms-track {
+        background: #f8bbd0;
+        border-color: transparent;
+        color: transparent;
     }
     #predict_btn {
         background-color: #e75480;
@@ -214,51 +303,67 @@ with gr.Blocks(css="""
         font-weight: 600;
         color: #880e4f;
     }
+    /* Style all tab buttons */
+    .tab-nav button {
+        all: unset; /* Remove Gradio's inline styles */
+        display: inline-block;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 10px 16px;
+        cursor: pointer;
+        background-color: transparent;
+        color: #ff8da1;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    /* Hover state */
+    .tab-nav button:hover {
+        background-color: #fce4ec;
+        color: #d0628f;
+    }
+    /* Selected/active tab */
+    .tab-nav button[aria-selected="true"] {
+        color: #c870a0;
+        border-bottom: 3px solid #ff8da1;
+        background-color: #fce4ec;
+    }
 """) as demo:
-    gr.Markdown("# Daegu Deals: Predicting Apartment Prices in Daegu, South Korea")
+    gr.Markdown("""<h1 style='color: #ff8da1; text-align: center; font-size: 36px; margin-top: 20px; font-weight: bold;'>Daegu Deals: Predicting Apartment Prices in Daegu, South Korea</h1>
+""")
+    with gr.Tabs():
+        with gr.Tab("Predict Price"):
+            gr.Markdown('<div class="section-header">Location & Layout</div>')
+            with gr.Row():
+                hallway = gr.Dropdown(hallway_options, label="Hallway Type")
+                subway_time = gr.Dropdown(subway_options, label="Time to Subway")
+                station = gr.Dropdown(station_options, label="Nearest Subway Station")
 
-    with gr.Tab("Predict Price"):
-        gr.Markdown('<div class="section-header">Location & Layout</div>')
-        with gr.Row():
-            hallway = gr.Dropdown(hallway_options, label="Hallway Type")
-            subway_time = gr.Dropdown(subway_options, label="Time to Subway")
-            station = gr.Dropdown(station_options, label="Nearest Subway Station")
+            gr.Markdown('<div class="section-header">Size & Year Built</div>')
+            with gr.Row():
+                size = gr.Slider(135, 2337, step=1, label="Size (sqft)")
+                year = gr.Slider(1978, 2015, step=1, label="Year Built")
 
-        gr.Markdown('<div class="section-header">Size & Year Built</div>')
-        with gr.Row():
-            size = gr.Slider(135, 2337, step=1, label="Size (sqft)")
-            year = gr.Slider(1978, 2015, step=1, label="Year Built")
+            gr.Markdown('<div class="section-header">Amenities & Facilities</div>')
+            with gr.Row():
+                facilities = gr.Slider(0, 10, step=1, label="Facilities in Apartment")
+                univ = gr.Slider(0, 5, step=1, label="Universities Nearby")
+                parking = gr.Slider(0, 1321, step=1, label="Basement Parking Lots")
+            with gr.Row():
+                public_office = gr.Slider(0, 10, step=1, label="Public Offices Nearby")
+                etc_facilities = gr.Slider(0, 10, step=1, label="ETC Facilities Nearby")
 
-        gr.Markdown('<div class="section-header">Amenities & Facilities</div>')
-        with gr.Row():
-            facilities = gr.Slider(0, 10, step=1, label="Facilities in Apartment")
-            univ = gr.Slider(0, 5, step=1, label="Universities Nearby")
-            parking = gr.Slider(0, 1321, step=1, label="Basement Parking Lots")
-        with gr.Row():
-            public_office = gr.Slider(0, 10, step=1, label="Public Offices Nearby")
-            etc_facilities = gr.Slider(0, 10, step=1, label="ETC Facilities Nearby")
+            predict_btn = gr.Button("Predict Price", elem_id="predict_btn")
+            prediction_output = gr.Textbox(label="Estimated Sale Price", elem_id="prediction_output", interactive=False)
 
-        predict_btn = gr.Button("Predict Price", elem_id="predict_btn")
-        prediction_output = gr.Textbox(label="Estimated Sale Price", elem_id="prediction_output", interactive=False)
+            predict_btn.click(
+                fn=predict_price,
+                inputs=[hallway, subway_time, station, size, year, facilities, univ, parking, public_office, etc_facilities],
+                outputs=prediction_output
+            )
 
-        predict_btn.click(
-            fn=predict_price,
-            inputs=[hallway, subway_time, station, size, year, facilities, univ, parking, public_office, etc_facilities],
-            outputs=prediction_output
-        )
-
-    with gr.Tab("Explore Data"):
-        description, fig_hallway, fig_time, fig_subway, fig_etc, fig_office, fig_size, fig_facilities, fig_parallel, fig_faceted = data_analysis()
-        gr.Markdown(description)
-        gr.Plot(fig_hallway)
-        gr.Plot(fig_time)
-        gr.Plot(fig_subway)
-        gr.Plot(fig_etc)
-        gr.Plot(fig_office)
-        gr.Plot(fig_size)
-        gr.Plot(fig_facilities)
-        gr.Plot(fig_parallel)
-        gr.Plot(fig_faceted)
+        with gr.Tab("Explore Data"):
+            description = data_analysis()
+            gr.Markdown(description)
 
 if __name__ == "__main__":
     demo.launch()
