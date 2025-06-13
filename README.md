@@ -57,6 +57,13 @@ All models are evaluated using cross-validation and performance metrics like RMS
 
 ## Evaluation
 Performance of the final XGBoost model:
+(After tuning)
+- R² Score: 0.830756 (log)
+- RMSE: 46080.200115 (₩)
+- MAE: 36652.895797 (₩)
+- MAPE: 18.243203 (%)
+
+(Tried on test data)
 - R² Score: 0.787331 (log)
 - RMSE: 47530.272290 (₩)
 - MAE: 38059.964844 (₩)
