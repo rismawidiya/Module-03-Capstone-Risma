@@ -271,7 +271,7 @@ These four metrics give a balanced view of model accuracy, capturing both statis
 ---
 
 ## Residual Analysis (Limitation)
-[Residual](https://drive.google.com/uc?export=view&id=1wWjsO0tmZ2EtcxvrhZq1XoXoXseZ4e01)
+![Residual](https://drive.google.com/uc?export=view&id=1wWjsO0tmZ2EtcxvrhZq1XoXoXseZ4e01)
 
 - **Most predictions are accurate**  
   - Majority of points fall near the zero residual line  
