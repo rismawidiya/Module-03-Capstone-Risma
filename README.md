@@ -271,7 +271,7 @@ These four metrics give a balanced view of model accuracy, capturing both statis
 ---
 
 ## Residual Analysis (Limitation)
-[Residual](https://drive.google.com/uc?export=view&id=1wWjsO0tmZ2EtcxvrhZq1XoXoXseZ4e0l)
+[Residual](https://drive.google.com/uc?export=view&id=1wWjsO0tmZ2EtcxvrhZq1XoXoXseZ4e01)
 
 - **Most predictions are accurate**  
   - Majority of points fall near the zero residual line  
@@ -290,7 +290,7 @@ These four metrics give a balanced view of model accuracy, capturing both statis
 ---
 
 ## SHAP Values
-![SHAP](https://drive.google.com/uc?export=view&id=1Sc-C8zFulGKFFkBkTcz1m6hosjFEmJxJ)
+![SHAP](https://drive.google.com/uc?export=view&id=1OWE248_e8siiTzGzK1ou_munwPbHztlc)
 
 SHAP interpretability highlighted:  
 - **Size(sqf)** as the most impactful driver of price  
