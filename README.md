@@ -195,7 +195,7 @@ Based on the exploratory findings, the following features were selected for mode
 ---
 
 ## Model Benchmarking  
-Models tested included:  
+Models tested include:  
 - **Random Forest**  
 - **Gradient Boosting**  
 - **XGBoost**  
