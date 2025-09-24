@@ -131,7 +131,7 @@ After cleaning, I obtained a reliable dataset that maintained both data quality 
 ![Universities vs Price](https://drive.google.com/uc?export=view&id=1pJgeo4KEUUTnlHpt53i3XiDZCi3e6M8x)
 
 - Properties with **1–2 nearby universities** show **higher and more consistent sale prices**, suggesting stronger demand in those areas.  
-- Homes with **4 or more universities nearby** tend to have **lower median prices** and a tighter range, possibly reflecting smaller or more standardised housing.  
+- Apartments with **4 or more universities nearby** tend to have **lower median prices** and a tighter range, possibly reflecting smaller or more standardised housing.  
 - Properties with **zero nearby universities** have the **widest price spread**, including high-priced outliers, which may represent larger suburban homes less dependent on university proximity.
 
 ---
