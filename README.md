@@ -151,7 +151,7 @@ After cleaning, I obtained a reliable dataset that maintained both data quality 
 
 - A **general upward trend** shows that newer properties (built more recently) tend to have **higher sale prices**.  
 - **High-price outliers**, especially around **2007**, spike above ₩600k, likely due to premium developments or special cases.  
-- **Older homes (pre-1990)** sold at moderate prices but **did not reach the peaks** of newer properties.  
+- **Older apartments (pre-1990)** sold at moderate prices but **did not reach the peaks** of newer properties.  
 - Overall, **newer buildings are more valuable**, though outliers highlight that certain developments can **exceed typical market ranges**.  
 
 ---
