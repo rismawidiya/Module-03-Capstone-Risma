@@ -270,6 +270,26 @@ These four metrics give a balanced view of model accuracy, capturing both statis
 
 ---
 
+## Model Comparison: Gradient Boosting vs. Grouped Mean by Size (Baseline)  
+![Comparison](https://drive.google.com/uc?export=view&id=1AaN9AsUVpQlnNyKEiOj5JLijoTnYUzw0)
+
+**Analysis:**  
+The scatter plot highlights the stronger performance of Gradient Boosting compared to a simple grouped mean predictor based on apartment size.  
+
+- **Gradient Boosting**: Predictions closely follow the diagonal (ideal) line, capturing variations in sale prices across the full range. This shows the model’s ability to generalise from multiple features.  
+- **Grouped Mean by Size**: Predictions cluster within a narrow band, failing to scale with higher prices. The almost horizontal trendline indicates severe underfitting when relying only on apartment size.  
+
+### Performance Metrics  
+
+| Model                  | Mean MAE (₩) | Mean RMSE (₩) | Mean R² (log) | Mean MAPE (%) |
+|-------------------------|--------------|---------------|---------------|---------------|
+| **XGBoost**             | 38,059.96    | 47,530.27     | 0.7873        | 18.78         |
+| **Grouped Mean by Size** | 84,983.13    | 104,295.58    | -0.0240       | 54.50         |
+
+Gradient Boosting significantly outperforms the baseline, reducing errors by more than half and achieving strong explanatory power (R² ≈ 0.79).  
+
+---
+
 ## Residual Analysis (Limitation)
 ![Residual](https://drive.google.com/uc?export=view&id=1BwkHvGI8U6QbcN-OWcMMMKj5l_YPUqnA)
 
@@ -300,6 +320,30 @@ SHAP interpretability highlighted:
 
 ---
 
+## Summary of Findings:
+
+After a thorough comparison of multiple regression models, from ensemble methods like Random Forest and Gradient Boosting to regularised linear models and SVR, **XGBoost** emerged as the most consistent and well-rounded performer. While the improvement after tuning was modest, **XGBoost achieved the lowest MAE (₩38,060) and RMSE (₩47,530)** on the test set, alongside the **highest R² score (0.787)** in predicting log-transformed sale prices. It also maintained a **balanced MAPE (18.78%)**, confirming its reliability across price ranges.
+
+- Model Performance Insights:
+    - All ensemble tree-based models outperformed Ridge and SVR in terms of R² and error metrics.
+    - XGBoost slightly edged out Gradient Boosting and CatBoost after tuning, showing it captured feature interactions more effectively.
+    - Compared to a simple baseline using Grouped Mean by Size, XGBoost reduced MAE by over 55% and massively improved R² from -0.02 to 0.79, proving the advantage of using a multi-feature ML model.
+
+- Error & Residual Patterns:
+    - Residuals were fairly well-distributed, with no major sign of systematic bias though predictions became less precise in higher price brackets (> ₩250k).
+    - Most predictions were classified as accurate, but underpricing tended to appear more in the ₩100k–₩300k range. Overpricing was more spread out, especially in mid-range prices.
+
+- Model Interpretability (SHAP):
+    - Size(sqf) was consistently the most influential feature, with newer buildings (YearBuilt) and Terraced hallways also playing major roles in boosting prices.
+    - Basement parking, proximity to ETC facilities, and subway access had more localised or interaction-based influence, sometimes increasing or slightly reducing predictions depending on context.
+    - The model captured nuanced effects. For instance, larger size didn’t always mean higher price, especially when combined with certain other features like parking or excess amenities.
+
+- Prediction Examples:
+    - Smaller, older apartments with less favourable layouts were predicted below average, even when they had some premium features.
+    - On the flip side, larger, newer units with desirable layouts (Terraced) were consistently priced higher by the model, though some features like basement parking occasionally acted as mild price suppressors depending on combinations.
+
+---
+
 ## Actionable Recommendations  
 
 ### 1. Pricing Oversight for High-End Properties
@@ -325,11 +369,16 @@ SHAP interpretability highlighted:
 ---
 
 ## Impact  
-This project demonstrates how applied machine learning can directly support **business strategy and customer trust**:  
-- **For real estate companies:** Improves accuracy of pricing, supports negotiations, and highlights features to promote in listings.  
-- **For buyers and sellers:** Offers transparent, data-backed reasoning for price estimates, reducing uncertainty.  
 
-By reducing pricing errors by more than **55% over a simple baseline**, this project illustrates not only technical skills in ML but also an understanding of how to transform predictions into **practical business value**.
+The project delivered measurable improvements in predictive accuracy and business value:  
+
+- **Error Reduction**: XGBoost reduced **MAE from ₩84,983 (baseline) to ₩38,060**, a **55% improvement**, and cut **RMSE from ₩104,296 to ₩47,530**.  
+- **Explained Variance**: R² improved from **-0.02 (baseline)** to **0.79**, showing the model explains nearly 80% of variance in log-transformed sale prices.  
+- **Consistency Across Price Ranges**: MAPE dropped from **54.50% (baseline)** to **18.78%**, indicating far more reliable predictions, especially for mid- to high-value apartments.  
+- **Business Relevance**: These gains mean agents and companies can price properties with **3× greater accuracy**, reducing costly mispricing risks and enabling sharper marketing strategies.  
+- **Feature Insights**: By surfacing influential drivers such as **size, year built, and hallway type**, the model highlights exactly which features to emphasise in listings and negotiations.  
+
+In practical terms, the model turns raw property data into actionable pricing intelligence, cutting error margins by more than half and directly supporting **better sales outcomes, client trust, and competitive advantage**.
 
 ---
 
