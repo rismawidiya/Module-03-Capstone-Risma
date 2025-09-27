@@ -381,6 +381,6 @@ In practical terms, the model turns raw property data into actionable pricing in
 
 ---
 
-- Presentation: [Daegu Apartments Presentation](https://drive.google.com/file/d/1TWmC_K0CRxsGQgrbf8VgNIQ5MCyMQruM/view?usp=sharing)
+- Presentation: [Daegu Apartments Presentation](https://drive.google.com/file/d/1shkd4EpBNH0TGY9ZFRkWqlOz3d8qjdQK/view?usp=sharing)
 - Streamlit: [Daegu Apartments Price Predictor](https://module-03-capstone-risma-daegu-apartments.streamlit.app)
 - Gradio: [Daegu Apartments Price Predictor](https://rismawidiya-portfolio-project.hf.space)
