@@ -319,7 +319,7 @@ SHAP interpretability highlighted:
 
 ---
 
-## Summary of Findings:
+## Summary of Findings
 
 After a thorough comparison of multiple regression models, from ensemble methods like Random Forest and Gradient Boosting to regularised linear models and SVR, **XGBoost** emerged as the most consistent and well-rounded performer. While the improvement after tuning was modest, **XGBoost achieved the lowest MAE (₩38,060) and RMSE (₩47,530)** on the test set, alongside the **highest R² score (0.787)** in predicting log-transformed sale prices. It also maintained a **balanced MAPE (18.78%)**, confirming its reliability across price ranges.
 
