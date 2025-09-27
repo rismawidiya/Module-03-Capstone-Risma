@@ -273,7 +273,6 @@ These four metrics give a balanced view of model accuracy, capturing both statis
 ## Model Comparison: Gradient Boosting vs. Grouped Mean by Size (Baseline)  
 ![Comparison](https://drive.google.com/uc?export=view&id=1AaN9AsUVpQlnNyKEiOj5JLijoTnYUzw0)
 
-**Analysis:**  
 The scatter plot highlights the stronger performance of Gradient Boosting compared to a simple grouped mean predictor based on apartment size.  
 
 - **Gradient Boosting**: Predictions closely follow the diagonal (ideal) line, capturing variations in sale prices across the full range. This shows the model’s ability to generalise from multiple features.  
